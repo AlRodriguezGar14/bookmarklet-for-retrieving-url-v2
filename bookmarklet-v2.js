@@ -30,8 +30,8 @@ javascript: (function () {
 
     const contentStyles = `
       background-color: #fff;
-      padding: 20px;
-      width: 500px;
+      padding: 2rem;
+      width: 40rem;
       text-align: center;
     `;
 
@@ -53,7 +53,7 @@ javascript: (function () {
     urlText.style.textOverflow = "ellipsis";
     urlText.style.whiteSpace = "nowrap";
     urlText.style.border = "none";
-    urlText.style.marginLeft = "5px";
+    urlText.style.marginLeft = "0.5rem";
     urlText.style.width = "100%";
 
     const copyButton = document.createElement("button");
