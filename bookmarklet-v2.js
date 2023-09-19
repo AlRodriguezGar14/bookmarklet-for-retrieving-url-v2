@@ -25,10 +25,14 @@ javascript: (function () {
 
   function findTitle() {
     let title = document.querySelectorAll("h2")[0].textContent.toLowerCase();
-
-    const outputTitle = title.replace(/[ ,:;.!?]/g, "_");
-
+    const outputTitle = title.replace(/[ ,:;.!?&]+/g, "_");
     return outputTitle;
+  }
+
+  function searchOnFH() {
+    let title = document.querySelectorAll("h2")[0].textContent.toLowerCase();
+    const titleSearch = encodeURIComponent(title);
+    window.open(`https://app.filmhub.com/?limit=50&with_name=${titleSearch}`);
   }
 
   function createOverlay(videoUrl, sku) {
@@ -137,6 +141,17 @@ javascript: (function () {
       overlay.remove();
     });
 
+    const searchOnFHButton = document.createElement("button");
+    searchOnFHButton.style.marginTop = "1rem";
+    searchOnFHButton.style.marginRight = "2rem";
+    searchOnFHButton.innerText = "Search (Filmhub)";
+    searchOnFHButton.style.padding = "0.5rem 1rem";
+    searchOnFHButton.style.border = "none";
+    searchOnFHButton.style.backgroundColor = "#b59e7a";
+    searchOnFHButton.style.color = "#fff";
+    searchOnFHButton.style.cursor = "pointer";
+    searchOnFHButton.addEventListener("click", searchOnFH);
+
     videoContainer.appendChild(videoLabel);
     videoContainer.appendChild(videoText);
     videoContainer.appendChild(videoCopyButton);
@@ -147,6 +162,7 @@ javascript: (function () {
 
     content.appendChild(videoContainer);
     content.appendChild(skuContainer);
+    content.appendChild(searchOnFHButton);
     content.appendChild(closeButton);
 
     overlay.appendChild(content);
@@ -161,11 +177,9 @@ javascript: (function () {
     const videoUrl =
       findVideoUrl() || "Remember to play the video to render it";
 
-    if (sku) {
-      title = findTitle();
-      const skuWithTitle = sku + "_" + title + "/";
-      createOverlay(videoUrl, skuWithTitle);
-    }
+    title = findTitle();
+    const skuWithTitle = sku + "_" + title + "/";
+    createOverlay(videoUrl, skuWithTitle);
   }
   startBookmarklet();
 })();
