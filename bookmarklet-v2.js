@@ -3,10 +3,8 @@ javascript: (function () {
     const videoElement = document.querySelector("video");
     if (videoElement) {
       return videoElement.currentSrc;
-    } else {
-      console.log("<video> tag not found on the page.");
-      return null;
     }
+    return null;
   }
 
   function findSKU() {
@@ -25,7 +23,7 @@ javascript: (function () {
 
   function findTitle() {
     let title = document.querySelectorAll("h2")[0].textContent.toLowerCase();
-    const outputTitle = title.replace(/[ ,:;.!?&]+/g, "_");
+    const outputTitle = title.replace(/[ ,:;.!?&'"]+/g, "_");
     return outputTitle;
   }
 
