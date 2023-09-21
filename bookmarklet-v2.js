@@ -89,10 +89,15 @@ javascript: (function () {
     videoCopyButton.style.color = "#fff";
     videoCopyButton.style.cursor = "pointer";
     videoCopyButton.addEventListener("click", function () {
-      videoText.select();
-      document.execCommand("copy");
-      videoCopyButton.innerText = "Copied! 🎉";
-      videoCopyButton.disabled = true;
+      navigator.clipboard
+        .writeText(videoUrl)
+        .then(() => {
+          videoCopyButton.innerText = "Copied! 🎉";
+          videoCopyButton.disabled = true;
+        })
+        .catch((err) => {
+          console.error("Failed to copy: ", err);
+        });
     });
 
     const skuContainer = document.createElement("div");
@@ -117,14 +122,15 @@ javascript: (function () {
     skuCopyButton.style.color = "#fff";
     skuCopyButton.style.cursor = "pointer";
     skuCopyButton.addEventListener("click", function () {
-      const tempInput = document.createElement("input");
-      tempInput.value = sku;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand("copy");
-      tempInput.remove();
-      skuCopyButton.innerText = "Copied! 🎉";
-      skuCopyButton.disabled = true;
+      navigator.clipboard
+        .writeText(sku)
+        .then(() => {
+          skuCopyButton.innerText = "Copied! 🎉";
+          skuCopyButton.disabled = true;
+        })
+        .catch((err) => {
+          console.error("Failed to copy: ", err);
+        });
     });
 
     const closeButton = document.createElement("button");
