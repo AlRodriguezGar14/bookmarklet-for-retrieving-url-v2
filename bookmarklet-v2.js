@@ -55,7 +55,7 @@ javascript: (function () {
     const contentStyles = `
     background-color: #fff;
     padding: 2rem;
-    width: 40rem;
+    width: 40vw;
     text-align: center;
   `;
 
@@ -80,10 +80,31 @@ javascript: (function () {
     videoText.style.marginLeft = "0.5rem";
     videoText.style.width = "100%";
 
+    const copyCurlButton = document.createElement("button");
+    copyCurlButton.style.marginLeft = "1rem";
+    copyCurlButton.innerText = "Copy Curl";
+    copyCurlButton.style.padding = "0.5rem 1rem";
+    copyCurlButton.style.margin = "0.5rem 1rem";
+    copyCurlButton.style.border = "none";
+    copyCurlButton.style.backgroundColor = "#b59e7a";
+    copyCurlButton.style.color = "#fff";
+    copyCurlButton.style.cursor = "pointer";
+    copyCurlButton.addEventListener("click", function () {
+      navigator.clipboard
+        .writeText(`curl -O ${videoUrl}`)
+        .then(() => {
+          copyCurlButton.innerText = "Copied! 🎉";
+          copyCurlButton.disabled = true;
+        })
+        .catch((err) => {
+          console.error("Failed to copy: ", err);
+        });
+    });
     const videoCopyButton = document.createElement("button");
     videoCopyButton.style.marginLeft = "1rem";
     videoCopyButton.innerText = "Copy URL";
     videoCopyButton.style.padding = "0.5rem 1rem";
+    videoCopyButton.style.margin = "0.5rem 1rem";
     videoCopyButton.style.border = "none";
     videoCopyButton.style.backgroundColor = "#b59e7a";
     videoCopyButton.style.color = "#fff";
@@ -167,6 +188,7 @@ javascript: (function () {
     content.appendChild(videoContainer);
     content.appendChild(skuContainer);
     content.appendChild(searchOnFHButton);
+    content.appendChild(copyCurlButton);
     content.appendChild(closeButton);
 
     overlay.appendChild(content);
