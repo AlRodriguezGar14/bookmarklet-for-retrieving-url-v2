@@ -91,7 +91,7 @@ javascript: (function () {
     copyCurlButton.style.cursor = "pointer";
     copyCurlButton.addEventListener("click", function () {
       navigator.clipboard
-        .writeText(`curl -O ${videoUrl}`)
+        .writeText(`curl -o ${sku.replace(/\/$/, ".mp4")} ${videoUrl}`)
         .then(() => {
           copyCurlButton.innerText = "Copied! 🎉";
           copyCurlButton.disabled = true;
